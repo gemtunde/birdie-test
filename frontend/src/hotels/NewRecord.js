@@ -1,8 +1,17 @@
 import React,{useState} from 'react';
-import AlgoliaPlaces from 'algolia-places-react'
 import { toast } from 'react-toastify';
+import {DatePicker, Select} from 'antd'
+import moment from 'moment';
+import { createRecord } from '../actions/record';
+import {createDispatchHook, useSelector} from 'react-redux';
 
+const {Option} = Select ;
 const NewRecord = () => {
+
+    //redux 
+    const {auth} = useSelector((state)=> ({...state}));
+    const {token} = auth;
+
     //state
     const [values, setValues] = useState({
         title : '',
@@ -20,8 +29,31 @@ const NewRecord = () => {
     const {title, description, location, image, price, from, to, bed} = values ;
 
     //handle form submit 
-    const handleSubmit = (e) => {
-      //  e.preventDefault();
+    const handleSubmit = async(e) => {
+       e.preventDefault();
+      // console.log(values);
+
+      //use form data. its a default feature in the browser
+      let recordData = new FormData();
+
+      recordData.append('title', title);
+      recordData.append('description', title);
+      recordData.append('location', location);
+      recordData.append('price', price);
+      image && recordData.append('image', image);
+      recordData.append('from', from);
+      recordData.append('to', to);
+      recordData.append('bed', bed);
+
+      console.log([...recordData]);
+       let res = await createRecord(token, recordData )
+       console.log('patients record created', res);
+       toast.success('New Patient record created');
+       //page refresh
+       setTimeout(()=>{
+            window.location.reload();
+       },1000);
+
     }
 
     //handle imAGE UPLOAD
@@ -65,6 +97,17 @@ const NewRecord = () => {
                  />
             </div>
             <div className="form-group">
+                <label className="label-group">location</label>
+                <input 
+                type="text"
+                className="form-control m-2"
+                name='location'
+                placeholder='your location'
+                onChange={handleChange}
+                value={location}                 
+                 />
+            </div>
+            <div className="form-group">
                 <label className="label-group">Description</label>
                 <textarea 
                 className="form-control m-2"
@@ -85,7 +128,7 @@ const NewRecord = () => {
                 value={price}                 
                  />
             </div>
-            <div className="form-group">
+            {/* <div className="form-group">
                 <label className="label-group">bed</label>
                 <input 
                 type="number"
@@ -95,7 +138,36 @@ const NewRecord = () => {
                 onChange={handleChange}
                 value={bed}                 
                  />
-            </div>
+
+                 <select>
+
+                 </select>
+            </div> */}
+            <Select 
+            className="w-100 m-2"
+            size='large'
+            placeholder="number of beds"
+            onChange={(value) => setValues({...values, bed:value})} >
+                <Option key={1}> {1}</Option>
+                <Option key={2}> {2}</Option>
+                <Option key={3}> {3}</Option>
+                <Option key={4}> {4}</Option>
+
+            </Select>
+            <DatePicker 
+            placeholder="From date"
+            className="form-control m-2"
+            onChange={(date, dateString) => setValues({...values, from: dateString})}
+            disabledDate={(current)=> current && current.valueOf() < 
+            moment().subtract(1, 'days')}
+            />
+            <DatePicker 
+            placeholder="To date"
+            className="form-control m-2"
+            onChange={(date, dateString) => setValues({...values, to: dateString})}
+            disabledDate={(current)=> current && current.valueOf() < 
+                moment().subtract(1, 'days')}
+            />
             <button type='submit' className='btn btn-danger m-2'>Save Records</button>
         </form>
     )
