@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 
   //register
   export const register = async(req, res) => {
-    const {name, email, password} = req.body
+    const {name, email, password,admin} = req.body
     //console.log(name, email, password);
 
       //vaidate name and password
@@ -18,6 +18,9 @@ import jwt from 'jsonwebtoken';
 
     //register user
     const user = new User(req.body) ;
+    if(admin === 'secret123'){
+      user.isAdmin = true ; 
+    }
     try{
         await user.save();
         console.log('user created',user);
@@ -57,6 +60,7 @@ import jwt from 'jsonwebtoken';
             _id : user._id,
             name : user.name,
             email : user.email,
+            isAdmin : user.isAdmin,
             createdAt : user.createdAt,
             updatedAt : user.updatedAt,
 

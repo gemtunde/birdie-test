@@ -9,6 +9,8 @@ import React, {useState} from  'react';
     setEmail,
     password,
     setPassword,
+    admin,
+    setAdmin
  }) =>(
     <form onSubmit={handleSubmit}>
         <div className="form-group">
@@ -18,6 +20,10 @@ import React, {useState} from  'react';
         <div className="form-group">
             <label className='form-label'>Email</label>
             <input type="email" className="form-control" value={email} onChange={(e)=>setEmail(e.target.value)} placeholder="Enter Email"/>                 
+        </div>
+        <div className="form-group">
+            <label className='form-label'>Admin Code</label>
+            <input type="text" className="form-control" value={admin} onChange={(e)=>setAdmin(e.target.value)} placeholder="Enter Admin Code" />                 
         </div>
         <div className="form-group">
             <label className='form-label'>Password </label>

@@ -9,6 +9,7 @@ const Register = ({history}) => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [admin, setAdmin] = useState('');
 
     const handleSubmit = async(e) => {
        
@@ -18,6 +19,7 @@ const Register = ({history}) => {
      try { const res = await register({
         name,
         email,
+        admin,
         password,
      });
         console.log('register successful',res);
@@ -52,6 +54,8 @@ const Register = ({history}) => {
                     setEmail = {setEmail}
                     password = {password}
                     setPassword = {setPassword}
+                    admin = {admin}
+                    setAdmin = {setAdmin}
                     />
                 </div>
             </div>
