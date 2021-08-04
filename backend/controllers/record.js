@@ -36,7 +36,16 @@ export const createRecord =async (req, res) => {
         })
         }
 
+    export const records = async (req, res) => {
+        let all =await Record.find({})
+        .limit(10)
+        .select("-image.data")
+        .populate("postedBy", "_id name")
+        .exec();
+        console.log(all);
+        res.json(all);
 
+    }
 
 
 

@@ -8,3 +8,7 @@ export const createRecord = async (token, data) => {
        },
    });
 }
+
+export const allRecords =  async() => {
+  return await axios.get(`${process.env.REACT_APP_API}/records`)
+}

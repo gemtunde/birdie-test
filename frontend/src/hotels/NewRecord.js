@@ -47,6 +47,9 @@ const NewRecord = () => {
       recordData.append('bed', bed);
 
       console.log([...recordData]);
+
+     try{
+         //send data
        let res = await createRecord(token, recordData )
        console.log('patients record created', res);
        toast.success('New Patient record created');
@@ -54,6 +57,12 @@ const NewRecord = () => {
        setTimeout(()=>{
             window.location.reload();
        },1000);
+     }
+     catch(err){
+         console.log(err);
+         toast.error(err.response.data);
+
+     }
 
     }
 
