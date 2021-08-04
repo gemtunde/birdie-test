@@ -2,6 +2,13 @@ import React,{useState} from 'react';
 import AlgoliaPlaces from 'algolia-places-react'
 import { toast } from 'react-toastify';
 
+const config ={
+    appId : process.env.REACT_APP_ALGOLIA_APP_ID,
+    appkey : process.env.REACT_APP_ALGOLIA_API_KEY ,
+    language : 'en',
+    countries : ["au"],
+};
+
 const NewRecord = () => {
     //state
     const [values, setValues] = useState({
@@ -74,6 +81,18 @@ const NewRecord = () => {
                 value={description}                 
                  />
             </div>
+            
+            {/* <AlgoliaPlaces
+            className="form-control ml-2 mr-2"
+            placeholder="Location"
+            defaultValue={location}
+            options={config}
+            onChange = {({suggestion})=>
+            setValues({...values, location : suggestion.value}) }
+            style = {{height : '50px'}}
+            
+            /> */}
+
             <div className="form-group">
                 <label className="label-group">price</label>
                 <input 
