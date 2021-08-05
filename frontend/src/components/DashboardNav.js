@@ -14,7 +14,7 @@ const DashboardNav = () => {
                 <Link className={`nav-link ${active === '/dashboard' && "active"}` } to='/dashboard'>Medical Records</Link>
             </li>
             
-        {            auth.isAdmin !== false && (
+        {            user.isAdmin  && (
             <li className="nav-item">
             <Link className={`nav-link ${active === '/dashboard/seller' && "active"}` } to='/dashboard/seller'>Make Bookings</Link>
             </li>
