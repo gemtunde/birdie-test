@@ -12,7 +12,7 @@ import Home from './booking/Home';
 import Dashboard from './user/Dashboard';
 import DashboardSeller from './user/DashboardSeller';
 import PrivateRoute from './components/PrivateRoute';
-import NewRecord from './hotels/NewRecord';
+import NewRecord from './records/NewRecord';
 
 function App() {
   return (

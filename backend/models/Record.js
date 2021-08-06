@@ -12,7 +12,7 @@ const recordSchema = new Schema({
         type: String,
         required : "Desription is required",
     },
-    location : {
+    observation : {
         type: String,
         },
     price : {
@@ -36,7 +36,7 @@ const recordSchema = new Schema({
         type: Date,
         
     },
-    bed : {
+    mood : {
         type: Number,
        
     },

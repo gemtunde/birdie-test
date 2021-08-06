@@ -15,7 +15,7 @@ function DashboardSeller() {
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-md-10 ">
-                        <p>Show your medical records</p>
+                        <p>Add Patient medical records</p>
                     </div>
                     <div className="col-md-2 ">
                         <Link to='/hotels/new' className='btn btn-success p-2'>

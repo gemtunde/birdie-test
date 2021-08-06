@@ -17,17 +17,17 @@ const NewRecord = () => {
     const [values, setValues] = useState({
         title : '',
         description : '',
-        location : '',
+        observation : '',
         image : '',
         price : '',
         from: '',
         to : '',
-        bed : '',
+        mood : '',
     });
     const [preview, setPreview] = useState(
    " http://via.placeholder.com/100x100.png?text=PREVIEW");
     //destructure state
-    const {title, description, location, image, price, from, to, bed} = values ;
+    const {title, description, observation, image, price, from, to, mood} = values ;
 
     //handle form submit 
     const handleSubmit = async(e) => {
@@ -39,12 +39,12 @@ const NewRecord = () => {
 
       recordData.append('title', title);
       recordData.append('description', title);
-      recordData.append('location', location);
+      recordData.append('observation', observation);
       recordData.append('price', price);
       image && recordData.append('image', image);
       recordData.append('from', from);
       recordData.append('to', to);
-      recordData.append('bed', bed);
+      recordData.append('mood', mood);
 
       console.log([...recordData]);
 
@@ -107,14 +107,14 @@ const NewRecord = () => {
                  />
             </div>
             <div className="form-group">
-                <label className="label-group">location</label>
+                <label className="label-group">Mood Observation</label>
                 <input 
                 type="text"
                 className="form-control m-2"
-                name='location'
-                placeholder='your location'
+                name='observation'
+                placeholder='happy, sad, bored, confused'
                 onChange={handleChange}
-                value={location}                 
+                value={observation}                 
                  />
             </div>
             <div className="form-group">
@@ -168,8 +168,8 @@ const NewRecord = () => {
             <Select 
             className="w-100 m-2"
             size='large'
-            placeholder="number of beds"
-            onChange={(value) => setValues({...values, bed:value})} >
+            placeholder="mood"
+            onChange={(value) => setValues({...values, mood:value})} >
                 <Option key={1}> {1}</Option>
                 <Option key={2}> {2}</Option>
                 <Option key={3}> {3}</Option>

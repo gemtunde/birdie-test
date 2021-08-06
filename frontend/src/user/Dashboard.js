@@ -2,6 +2,7 @@ import React from 'react'
 import ConnectNav from '../components/ConnectNav'
 import DashboardNav from '../components/DashboardNav';
 import {Link} from 'react-router-dom'
+import ShowRecord from './ShowRecord';
 
 function Dashboard() {
     return (
@@ -15,10 +16,10 @@ function Dashboard() {
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-md-10 ">
-                        <p>Show your medical records</p>
+                        <ShowRecord />
                     </div>
                     <div className="col-md-2 ">
-                        <Link to='/' className='btn btn-success p-2'>Check Records</Link>
+                        <Link to='/' className='btn btn-success p-2'>Dashboard</Link>
                     </div>
                 </div>
             </div>
