@@ -1,9 +1,10 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import { toast } from 'react-toastify';
 import {DatePicker, Select} from 'antd'
 import moment from 'moment';
 import { createRecord } from '../actions/record';
-import {createDispatchHook, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
+import { allUsers } from '../actions/record';
 
 const {Option} = Select ;
 
@@ -13,21 +14,33 @@ const NewRecord = () => {
     const {auth} = useSelector((state)=> ({...state}));
     const {token} = auth;
 
+    //getting all user
+    const [users, setUser] = useState([]);
+
+    useEffect(()=> {
+        getUser();
+    },[]);
+
+    const getUser = async() => {
+        let myUser = await allUsers();
+        setUser(myUser.data);
+
+    }
+
+
     //state
     const [values, setValues] = useState({
         title : '',
         description : '',
         observation : '',
-        image : '',
-        price : '',
-        from: '',
-        to : '',
+        price : '',        
+        user : "",
         mood : '',
     });
     const [preview, setPreview] = useState(
    " http://via.placeholder.com/100x100.png?text=PREVIEW");
     //destructure state
-    const {title, description, observation, image, price, from, to, mood} = values ;
+    const {title, description, observation, price, user, mood} = values ;
 
     //handle form submit 
     const handleSubmit = async(e) => {
@@ -38,12 +51,10 @@ const NewRecord = () => {
       let recordData = new FormData();
 
       recordData.append('title', title);
-      recordData.append('description', title);
+      recordData.append('description', description);
       recordData.append('observation', observation);
       recordData.append('price', price);
-      image && recordData.append('image', image);
-      recordData.append('from', from);
-      recordData.append('to', to);
+      recordData.append('user', user);
       recordData.append('mood', mood);
 
       console.log([...recordData]);
@@ -67,11 +78,11 @@ const NewRecord = () => {
     }
 
     //handle imAGE UPLOAD
-    const handleImageChange = (e) => {
-        //console.log(e.target.files[0]);
-        setPreview(URL.createObjectURL(e.target.files[0]));
-        setValues({...values, image:e.target.files[0]});
-    }
+    // const handleImageChange = (e) => {
+    //     //console.log(e.target.files[0]);
+    //     setPreview(URL.createObjectURL(e.target.files[0]));
+    //     setValues({...values, image:e.target.files[0]});
+    // }
 
     const handleChange = (e) => {
        
@@ -82,7 +93,7 @@ const NewRecord = () => {
     //patient form
     const patientForm = ()=> (
         <form onSubmit={handleSubmit}>
-            <div className='form-group'>
+            {/* <div className='form-group'>
                 <label className="btn btn-outline-secondary btn-block m-2 text-left">
                     Image
                     <input
@@ -93,7 +104,7 @@ const NewRecord = () => {
                      hidden                    
                      />
                 </label>                
-            </div>
+            </div> */}
 
             <div className="form-group">
                 <label className="label-group">title</label>
@@ -170,26 +181,24 @@ const NewRecord = () => {
             size='large'
             placeholder="mood"
             onChange={(value) => setValues({...values, mood:value})} >
-                <Option key={1}> {1}</Option>
-                <Option key={2}> {2}</Option>
-                <Option key={3}> {3}</Option>
-                <Option key={4}> {4}</Option>
+                <Option key={1}> Very Sad</Option>
+                <Option key={2}> Sad</Option>
+                <Option key={3}> Okay</Option>
+                <Option key={4}> Excited</Option>
 
             </Select>
-            <DatePicker 
-            placeholder="From date"
-            className="form-control m-2"
-            onChange={(date, dateString) => setValues({...values, from: dateString})}
-            disabledDate={(current)=> current && current.valueOf() < 
-            moment().subtract(1, 'days')}
-            />
-            <DatePicker 
-            placeholder="To date"
-            className="form-control m-2"
-            onChange={(date, dateString) => setValues({...values, to: dateString})}
-            disabledDate={(current)=> current && current.valueOf() < 
-                moment().subtract(1, 'days')}
-            />
+            <Select 
+            className="w-100 m-2"
+            size='large'
+            placeholder="Select Patient"
+            onChange={(value) => setValues({...values, user:value})} 
+           >
+                {users.map((user, _id)=>
+                    <Option key={user._id}> {user.name}</Option>
+                )}
+
+            </Select>
+           
             <button type='submit' className='btn btn-danger m-2'>Save Records</button>
         </form>
     )

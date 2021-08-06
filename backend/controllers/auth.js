@@ -24,7 +24,7 @@ import jwt from 'jsonwebtoken';
     try{
         await user.save();
         console.log('user created',user);
-        return res.json({ok:true});
+        return res.json({ok:true})
 
     }
     catch(err){

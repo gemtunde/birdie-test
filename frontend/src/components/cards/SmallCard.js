@@ -19,7 +19,7 @@ const SmallCard = ({record}) =>
                labels:['Mood'],
                datasets:[{
                    label:'Patient Mood',
-                   data:[5,10, 20],
+                   data:[[record.mood],10, 20],
                    backgroundColor: 'red',
                    barThickness:20
                }]
@@ -54,6 +54,8 @@ const SmallCard = ({record}) =>
                 <th>Observation</th>
                 <th>Mood Rank : scale of 1-5</th>
                 <th>Description</th>
+                <th>Admin</th>
+                <th>Patient</th>
                 <th>Visited</th>
                 
                 </tr>
@@ -66,7 +68,9 @@ const SmallCard = ({record}) =>
                 <td>{record.observation}</td>
                 <td>{record.mood}</td>
                 <td>{`${record.description.substring(0, 200)}...`}</td>
-                <td>{` ${moment(record.from).fromNow()}`}</td>
+                <td>{record.postedBy.name}</td>
+                <td>{record.user.name}</td>
+                <td>{` ${moment(record.createdAt).fromNow()}`}</td>
                
                 </tr>
                 

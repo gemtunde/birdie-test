@@ -24,18 +24,15 @@ const recordSchema = new Schema({
         type: ObjectId,
         ref:"User",
     },
+    user : {
+        type: ObjectId,
+        ref:"User",
+    },
     image : {
         data: Buffer,
         contentType :String,
     },
-    from : {
-        type: Date,
-        
-    },
-    to : {
-        type: Date,
-        
-    },
+   
     mood : {
         type: Number,
        

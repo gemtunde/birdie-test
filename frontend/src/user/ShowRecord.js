@@ -5,7 +5,7 @@ import SmallCard from '../components/cards/SmallCard';
 
 
 const ShowRecord = ()  =>{
-    const [records, setRecords] = useState([]);
+    const [records, setRecords] = useState(null);
 
     useEffect(() => {
         getAllRecords();
@@ -16,7 +16,7 @@ const ShowRecord = ()  =>{
        // console.log(res.data);
         setRecords(res.data);
     }
-
+    if(records === null) return  <p>Loading ...</p>
     return (
         <>
         <div className='container-fluid h1  p-5 text-center'>

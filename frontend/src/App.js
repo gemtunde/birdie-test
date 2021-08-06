@@ -25,8 +25,10 @@ function App() {
                <Route path='/' exact component = {Home} />
                <Route path='/login' exact component = {Login} />
                <Route path='/register' exact component = {Register} />
+
+               {/* //protected routes */}
                <PrivateRoute path='/dashboard' exact component = {Dashboard} />
-              {/* change this seller to admin '/dashboard/admin' */}
+             
                <PrivateRoute path='/dashboard/seller' exact component = {DashboardSeller} />
                <PrivateRoute path='/hotels/new' exact component = {NewRecord} />
             </Switch>
